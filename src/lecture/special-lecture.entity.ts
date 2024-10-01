@@ -1,5 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { Lecture } from './lecture.entity';
+import { LectureApplication } from './lecture-application.entity';
 
 @Entity()
 export class SpecialLecture {
@@ -17,4 +24,10 @@ export class SpecialLecture {
 
   @ManyToOne(() => Lecture, (lecture) => lecture.specialLectures)
   lecture: Lecture;
+
+  @OneToMany(
+    () => LectureApplication,
+    (application) => application.specialLecture,
+  )
+  application: LectureApplication[];
 }
