@@ -4,8 +4,6 @@ import { AppService } from './app.service';
 import { LectureModule } from './lecture/lecture.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { SpecialLecture } from './lecture/special-lecture.entity';
-import { Lecture } from './lecture/lecture.entity';
 
 @Module({
   imports: [
@@ -20,7 +18,7 @@ import { Lecture } from './lecture/lecture.entity';
       database: process.env.DB_DATABASE,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Lecture, SpecialLecture]),
+    LectureModule,
   ],
   controllers: [AppController],
   providers: [AppService],
