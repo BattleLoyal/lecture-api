@@ -4,11 +4,17 @@ import { AppService } from './app.service';
 import { LectureModule } from './lecture/lecture.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { Lecture } from './lecture/entity/lecture.entity';
+import { SpecialLecture } from './lecture/entity/special-lecture.entity';
+import { LectureApplication } from './lecture/entity/lecture-application.entity';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     LectureModule,
-    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
@@ -16,11 +22,12 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      synchronize: true,
+      entities: [Lecture, SpecialLecture, LectureApplication],
     }),
-    LectureModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}

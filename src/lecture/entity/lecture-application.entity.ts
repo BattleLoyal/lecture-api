@@ -1,7 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  Unique,
+} from 'typeorm';
 import { SpecialLecture } from './special-lecture.entity';
 
-@Entity()
+@Entity('lecture_applications')
+@Unique(['userId', 'specialLectureId'])
 export class LectureApplication {
   @PrimaryGeneratedColumn()
   id: number;
@@ -11,6 +18,9 @@ export class LectureApplication {
 
   @Column()
   applicationDate: string;
+
+  @Column()
+  specialLectureId: number;
 
   @ManyToOne(
     () => SpecialLecture,

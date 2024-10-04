@@ -8,7 +8,7 @@ import {
 import { Lecture } from './lecture.entity';
 import { LectureApplication } from './lecture-application.entity';
 
-@Entity()
+@Entity('special_lectures')
 export class SpecialLecture {
   @PrimaryGeneratedColumn()
   id: number;
